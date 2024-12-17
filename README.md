@@ -1,4 +1,4 @@
-[![Go Reference](https://pkg.go.dev/badge/github.com/vladimirvivien/go4vl.svg)](https://pkg.go.dev/github.com/vladimirvivien/go4vl) [![Go Report Card](https://goreportcard.com/badge/github.com/vladimirvivien/go4vl)](https://goreportcard.com/report/github.com/vladimirvivien/go4vl)
+[![Go Reference](https://pkg.go.dev/badge/github.com/passerbyabc/go4vl.svg)](https://pkg.go.dev/github.com/passerbyabc/go4vl) [![Go Report Card](https://goreportcard.com/badge/github.com/passerbyabc/go4vl)](https://goreportcard.com/report/github.com/passerbyabc/go4vl)
 
 # go4vl
 
@@ -40,7 +40,7 @@ The package should work with no problem on your 64-bit Linux OS.
 To include `go4vl` in your own code, `go get` the package:
 
 ```bash
-go get github.com/vladimirvivien/go4vl/v4l2
+go get github.com/passerbyabc/go4vl/v4l2
 ```
 
 ## Video capture example

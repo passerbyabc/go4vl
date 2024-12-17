@@ -10,8 +10,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/vladimirvivien/go4vl/device"
-	"github.com/vladimirvivien/go4vl/v4l2"
+	"github.com/passerbyabc/go4vl/device"
+	"github.com/passerbyabc/go4vl/v4l2"
 )
 
 func main() {

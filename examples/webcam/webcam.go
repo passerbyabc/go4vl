@@ -21,8 +21,8 @@ import (
 
 	pigo "github.com/esimov/pigo/core"
 	"github.com/fogleman/gg"
-	"github.com/vladimirvivien/go4vl/device"
-	"github.com/vladimirvivien/go4vl/v4l2"
+	"github.com/passerbyabc/go4vl/device"
+	"github.com/passerbyabc/go4vl/v4l2"
 )
 
 var (
