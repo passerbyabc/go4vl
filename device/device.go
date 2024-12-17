@@ -22,7 +22,7 @@ type Device struct {
 	requestedBuf v4l2.RequestBuffers
 	streaming    bool
 	output       chan []byte
-	isRun        chan bool
+	IsRun        chan bool
 }
 
 // Open creates opens the underlying device at specified path for streaming.
@@ -66,6 +66,7 @@ func Open(path string, options ...Option) (*Device, error) {
 		// setup capture parameters and chan for captured data
 		dev.bufType = v4l2.BufTypeVideoCapture
 		dev.output = make(chan []byte, dev.config.bufSize)
+		dev.IsRun = make(chan bool)
 	case cap.IsVideoOutputSupported():
 		dev.bufType = v4l2.BufTypeVideoOutput
 	default:
@@ -167,10 +168,6 @@ func (d *Device) MemIOType() v4l2.IOType {
 // captured from the underlying device driver.
 func (d *Device) GetOutput() <-chan []byte {
 	return d.output
-}
-
-func (d *Device) IsRun() <-chan bool {
-	return d.isRun
 }
 
 // SetInput sets up an input channel for data this sent for output to the
@@ -382,7 +379,7 @@ func (d *Device) Stop() error {
 // capture events.
 func (d *Device) startStreamLoop(ctx context.Context) error {
 	d.output = make(chan []byte, d.config.bufSize)
-	d.isRun = make(chan bool)
+	d.IsRun = make(chan bool)
 
 	// Initial enqueue of buffers for capture
 	for i := 0; i < int(d.config.bufSize); i++ {
@@ -414,7 +411,7 @@ func (d *Device) startStreamLoop(ctx context.Context) error {
 						continue
 					}
 					// panic(fmt.Sprintf("device: stream loop dequeue: %s", err))
-					d.isRun <- false
+					d.IsRun <- false
 					return
 				}
 
@@ -432,7 +429,7 @@ func (d *Device) startStreamLoop(ctx context.Context) error {
 
 				if _, err := v4l2.QueueBuffer(fd, ioMemType, bufType, buff.Index); err != nil {
 					// panic(fmt.Sprintf("device: stream loop queue: %s: buff: %#v", err, buff))
-					d.isRun <- false
+					d.IsRun <- false
 					return
 				}
 			case <-ctx.Done():
